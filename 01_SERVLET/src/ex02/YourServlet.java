@@ -11,7 +11,20 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class YourServlet
  * 1. 서블릿을 실행하는 방법
  * 	1) 톰캣을 실행한다.
- * 	2) 
+ * 	2) 톰캣의 컨테이너에 프로젝트를 담는다.
+ * 	3) 주소창에 url을 입력한다.
+ * 		- url ->  호스트명:포트번호/contextPath
+ * 		- contextPath는 해당 프로젝트로 생성된 웹 페이지들의 기본 주소로 사용된다.
+ * 		 기본값은 "프로젝트이름"
+ * 		- urlMapping은 어떤 페이지의 주소로 사용된다. 기본값은 "서블릿이름"
+ * 2. contextPath 수정 방법 2가지
+ * 	1) 프로젝트 생성 단계에서 Context root를 변경한다.
+ *  2) 완성된 프로젝트의 Properties(속성)에서 Context root를 변경한다.
+ *  	: 프로젝트 우클릭 - Properties - Web Project Settings
+ * 3. urlMapping 수정 방법 3가지
+ * 	1) 서블릿 생성 단계에서 URL Mapping을 변경한다.
+ * 	2) 완성된 서블릿의 @WebServlet() 애너테이션 값을 변경한다.
+ * 	3) web.xml을 열고 <servlet>  태그와 <servlet-mapping> 태그를 추가한다.
  */
 @WebServlet("/galaxy")
 public class YourServlet extends HttpServlet {
