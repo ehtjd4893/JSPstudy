@@ -15,7 +15,7 @@
 		String directory = application.getRealPath("/quiz");
 		String filename = request.getParameter("id") + ".txt";
 		File file = new File(directory, filename);
-		System.out.println(file);
+		//System.out.println(file);
 	%>
 
 
@@ -30,7 +30,7 @@
 		%>
 		<script>
 		alert('<%=info%>');
-		history.back();
+		location.href="/02_JSP/quiz/Quiz05_1.jsp";
 		</script>
 </head>
 <body>
