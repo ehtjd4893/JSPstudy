@@ -31,7 +31,9 @@
 <script>
 	$(function(){
 		$('#delete').on('click',function(){
-			location.href = '/02_JSP/quiz/Quiz05_6.jsp?id=' + '<%=id%>';
+			if(confirm('정말 탈퇴하시겠습니까?')){					
+				location.href = '/02_JSP/quiz/Quiz05_6.jsp?id=' + '<%=id%>';
+			}
 		});
 	})
 </script>

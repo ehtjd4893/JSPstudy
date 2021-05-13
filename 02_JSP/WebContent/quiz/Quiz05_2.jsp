@@ -9,6 +9,7 @@
 </head>
 <body>
 <%
+	request.setCharacterEncoding("utf-8");
 	boolean go = true;
 	if(!(new File(application.getRealPath("/quiz") ,request.getParameter("id") +".txt")).exists()){
 		go = false;
