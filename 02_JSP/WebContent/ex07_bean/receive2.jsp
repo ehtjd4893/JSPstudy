@@ -1,4 +1,4 @@
-<%@page import="ex07.Person"%>
+<%@page import="ex07_bean.Person"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,13 +8,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<% request.setCharacterEncoding("utf-8"); %>
+	<%
+		request.setCharacterEncoding("utf-8");
+	%>
 	
 	<!-- 
 		디폴트 생성자로 만든 빈
 		Person p = new Person();
 	 -->
-	<jsp:useBean id="p" class="ex07.Person"></jsp:useBean>
+	<jsp:useBean id="p" class="ex07_bean.Person"></jsp:useBean>
 	<!-- 
 		setter로 데이터 주입하기
 		p.setName(request.getParameter("name");
