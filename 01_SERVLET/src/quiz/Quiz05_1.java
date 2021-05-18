@@ -1,7 +1,7 @@
-package ex06;
+package quiz;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Quiz05_2
+ * Servlet implementation class Quiz05_1
  */
-@WebServlet("/Quiz05_2")
-public class Quiz05_2 extends HttpServlet {
+@WebServlet("/Quiz05_1")
+public class Quiz05_1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Quiz05_2() {
+    public Quiz05_1() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,25 +28,18 @@ public class Quiz05_2 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// 리다이렉트는 기존 request의 정보를 전달하지 않는다.
+		// 따라서 우리가 직접 다시 전달한다.
 		request.setCharacterEncoding("utf-8");
 		String name = request.getParameter("name");
-		/*
-		 * if(name == null || name.isEmpty()) name = "이름 없음";
-		 */		String strAge = request.getParameter("age");
-		/*
-		 * if(strAge != null && !strAge.isEmpty()) age = Integer.parseInt(strAge);
-		 */		
-		response.setContentType("text/html; charset=utf-8");
-		System.out.println("05-2: "+ name + strAge);	
+		String age = request.getParameter("age");
+		System.out.println(name + age);
+
+		// 인코딩(암호화) : URLEncoder.encode("문자열","utf-8");
+		// 디코딩(암호화) : URLEncoder.decode("문자열","utf-8");
 		
-		PrintWriter out = response.getWriter();
-		out.println("<script>");
-		out.println("alert('"
-				+ "이름: " + name
-				+ ", 나이: " + strAge
-				+ "');");
-		out.println("history.back();</script>");
-		
+		response.sendRedirect("/01_SERVLET/Quiz05_2?name=" + URLEncoder.encode(name,"utf-8") + "&age=" +age);
 	}
 
 	/**
