@@ -14,10 +14,13 @@ public class GetToday {
 	//		1) 결과값: CONTROLLER가 넘겨준 request에 저장
 	//		   (CONTROLLER에서 결과값을 확인할 수 있다.)
 	
+
+	
 	public String execute(HttpServletRequest request) {
 		
 		// 1. 현재 날짜를 구한다.
 		Date today = new Date();
+		
 		request.setAttribute("today", today);
 		
 		// 2. 응답VIEW를 반환한다.

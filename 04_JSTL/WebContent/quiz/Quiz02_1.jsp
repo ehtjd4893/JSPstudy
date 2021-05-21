@@ -11,8 +11,8 @@
 	<form action="Quiz02_2.jsp" method="post">
 		<h3>일반 forEach 연습</h3>
 		<p>아래에 크기를 입력하면 폰트 크기를 확인할 수 있습니다.</p><br>
-		최소 크기<input type="text" name="min" min="1" max="7"><br>
-		최대 크기<input type="text" name="max" min="1" max="7">
+		최소 크기<input type="number" name="min" min="1" max="7"><br>
+		최대 크기<input type="number" name="max" min="1" max="7">
 		<h3>향상 forEach 연습</h3>
 			<label><input type="checkbox" name = "foods" value="불고기">불고기</label>
 			<label><input type="checkbox" name = "foods" value="닭갈비">닭갈비</label>

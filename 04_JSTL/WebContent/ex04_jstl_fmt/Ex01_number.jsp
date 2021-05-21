@@ -12,7 +12,7 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 </head>
-<body>	
+<body>	 
 	<c:set var="n" value="123456789.123456789"/>
 	<h3>쉼표 처리(,): <fmt:formatNumber value="${n}" groupingUsed="true"/></h3>
 	<h3>쉼표 처리(,): <fmt:formatNumber value="${n}" pattern="#,##0" /></h3>
