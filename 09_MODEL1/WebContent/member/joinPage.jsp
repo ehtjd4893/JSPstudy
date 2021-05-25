@@ -43,7 +43,9 @@
 				}
 			})
 			
-
+			$('#cancel_btn').on('click',function(){
+				location.href='../index.jsp';
+			})
 		})
 		
 	</script>
