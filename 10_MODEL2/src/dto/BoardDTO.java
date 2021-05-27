@@ -3,7 +3,7 @@ package dto;
 import java.sql.Date;
 
 public class BoardDTO {
-	
+
 	private long idx;
 	private String author;
 	private String title;
@@ -12,8 +12,9 @@ public class BoardDTO {
 	private String ip;
 	private String filename;
 	private int state;
-	private Date postDate;
+	private Date postdate;
 	private Date lastmodified;
+	
 	public long getIdx() {
 		return idx;
 	}
@@ -62,11 +63,11 @@ public class BoardDTO {
 	public void setState(int state) {
 		this.state = state;
 	}
-	public Date getPostDate() {
-		return postDate;
+	public Date getPostdate() {
+		return postdate;
 	}
-	public void setPostDate(Date postDate) {
-		this.postDate = postDate;
+	public void setPostdate(Date postdate) {
+		this.postdate = postdate;
 	}
 	public Date getLastmodified() {
 		return lastmodified;
@@ -74,6 +75,5 @@ public class BoardDTO {
 	public void setLastmodified(Date lastmodified) {
 		this.lastmodified = lastmodified;
 	}
-	
 	
 }

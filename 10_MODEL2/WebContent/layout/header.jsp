@@ -8,7 +8,7 @@
 	<%
 		request.setCharacterEncoding("utf-8");
 		Optional<String> opt = Optional.ofNullable(request.getParameter("title"));
-		String title = opt.orElse("환영합니다.");
+		String title = opt.orElse("환영합니다");
 		pageContext.setAttribute("title", title);
 	%>
 	<title>${title}</title>
@@ -18,9 +18,10 @@
 </head>
 <body>
 	<div class="container">
+	
 		<header>
 			<a href="#">
-				<img src="assets/images/daum.jpg" alt="로고" style="width: 200px">
+				<img src="assets/images/daum.png" alt="로고" style="width: 200px;">
 			</a>
 			<nav>
 				<ul>
@@ -30,4 +31,5 @@
 				</ul>
 			</nav>
 		</header>
+	
 		<section>

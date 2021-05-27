@@ -3,6 +3,7 @@ package dto;
 import java.sql.Date;
 
 public class MemberDTO {
+
 	private long no;
 	private String id;
 	private String pw;
@@ -10,14 +11,20 @@ public class MemberDTO {
 	private String email;
 	private Date regdate;
 	
-	
-	
+	public MemberDTO(){}
 	public MemberDTO(String id, String pw, String name, String email) {
 		super();
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
 		this.email = email;
+	}
+	
+	public long getNo() {
+		return no;
+	}
+	public void setNo(long no) {
+		this.no = no;
 	}
 	public String getId() {
 		return id;
@@ -43,19 +50,11 @@ public class MemberDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public long getNo() {
-		return no;
-	}
-	public void setNo(long no) {
-		this.no = no;
-	}
 	public Date getRegdate() {
 		return regdate;
 	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	
-
 	
 }

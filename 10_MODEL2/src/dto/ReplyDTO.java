@@ -3,13 +3,14 @@ package dto;
 import java.sql.Date;
 
 public class ReplyDTO {
-	
+
 	private long idx;
 	private String author;
 	private String content;
 	private String ip;
 	private long boardIdx;
-	private Date postDate;
+	private Date postdate;
+
 	public long getIdx() {
 		return idx;
 	}
@@ -40,12 +41,11 @@ public class ReplyDTO {
 	public void setBoardIdx(long boardIdx) {
 		this.boardIdx = boardIdx;
 	}
-	public Date getPostDate() {
-		return postDate;
+	public Date getPostdate() {
+		return postdate;
 	}
-	public void setPostDate(Date postDate) {
-		this.postDate = postDate;
+	public void setPostdate(Date postdate) {
+		this.postdate = postdate;
 	}
-	
 	
 }

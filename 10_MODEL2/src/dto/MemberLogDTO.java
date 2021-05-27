@@ -3,10 +3,14 @@ package dto;
 import java.sql.Date;
 
 public class MemberLogDTO {
+
 	private long no;
 	private String id;
 	private Date login;
 	private Date logout;
+	
+	public MemberLogDTO() {}
+
 	public long getNo() {
 		return no;
 	}
@@ -31,6 +35,5 @@ public class MemberLogDTO {
 	public void setLogout(Date logout) {
 		this.logout = logout;
 	}
-	
 	
 }
