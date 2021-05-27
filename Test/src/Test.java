@@ -1,3 +1,8 @@
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,10 +73,40 @@ public class Test {
 				"  ]\r\n" + 
 				"}";
 		
+		try {
+			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("D:\\Spring0303\\JSPSTUDY_DS\\test.txt"));
+			byte[] b = responseBody.getBytes();
+			bos.write(b);
+			bos.flush();
+			bos.close();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String readString = "";
+		try {
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream("D:\\Spring0303\\JSPSTUDY_DS\\test.txt"));
+			byte[] b = new byte[512];
+			while(true) {
+				int r = bis.read(b);
+				if(r == -1)
+					break;
+				readString += new String(b,0,r); 
+			}
+			bis.close();
+			//System.out.println(responseBody);
+			System.out.println(readString);
+			System.out.println(readString.equals(responseBody));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		JSONParser parser = new JSONParser();
 		JSONObject obj = null;
 		try {
-			obj = (JSONObject)parser.parse(responseBody);
+			obj = (JSONObject)parser.parse(readString);
 			JSONObject obj2 = null;
 			
 			JSONArray list = (JSONArray) obj.get("results");
