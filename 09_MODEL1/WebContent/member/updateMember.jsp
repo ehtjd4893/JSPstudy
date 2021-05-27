@@ -3,44 +3,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	// 1. 파라미터 처리
 	request.setCharacterEncoding("utf-8");
 
-	MemberDTO dto = (MemberDTO)session.getAttribute("loginDTO");
-	String email = request.getParameter("email");
 	String name = request.getParameter("name");
+	String email = request.getParameter("email");
 	
-	int result1 = -1;
-	if(!email.equals(dto.getEmail())){
-		dto.setEmail(email);
-		result1 = MemberDAO.getInstance().updateEmail(dto);
-	}
-	int result2 = -1;
-	if(!name.equals(dto.getName())){
-		dto.setName(name);
-		result2 = MemberDAO.getInstance().updateName(dto);
-	}
+	// 2. DB로 보낼 DTO 생성
+	MemberDTO dto = new MemberDTO();
+	dto.setName(name);
+	dto.setEmail(email);
+	dto.setNo( ((MemberDTO)session.getAttribute("loginDTO")).getNo() );
 	
+	// 3. DAO의 updateMember() 메소드 호출
+	int result = MemberDAO.getInstance().updateMember(dto);
 	
-
-	if(result1 > 0 && result2 > 0 ){
-
+	// 4. 결과
+	if (result > 0) {
+		// session에 올라가 있는 loginDTO 갱신
+		MemberDTO loginDTO = (MemberDTO)session.getAttribute("loginDTO");
+		loginDTO.setName(name);
+		loginDTO.setEmail(email);
 		out.println("<script>");
-		out.println("alert('이름과 이메일 변경에 성공했습니다.')");
+		out.println("alert('회원 정보가 수정되었습니다.')");
 		out.println("location.href='myPage.jsp'");
 		out.println("</script>");
-	}
-	else if(result1 > 0 && result2 <= 0 ){
+	} else {
 		out.println("<script>");
-		out.println("alert('이메일 변경에 성공했습니다.')");
-		out.println("location.href='myPage.jsp'");
+		out.println("alert('회원 정보가 수정되지 않았습니다.')");
+		out.println("history.back()");
 		out.println("</script>");
 	}
-	else if(result1 <= 0 && result2 > 0 ){
-		out.println("<script>");
-		out.println("alert('이름 변경에 성공했습니다.')");
-		out.println("location.href='myPage.jsp'");
-		out.println("</script>");
-	}
-	
-	
 %>

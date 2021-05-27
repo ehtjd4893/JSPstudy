@@ -3,14 +3,13 @@ package dto;
 import java.sql.Date;
 
 public class MemberDTO {
+
 	private long no;
 	private String id;
 	private String pw;
 	private String name;
 	private String email;
 	private Date regdate;
-	
-	
 	
 	public long getNo() {
 		return no;
@@ -48,12 +47,10 @@ public class MemberDTO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	
 	@Override
 	public String toString() {
-		return "[No: " + no + ", ID: " + id + ", PW: " + pw + ", Name: " + name
+		return "[No: " + no + ", Id: " + id + ", Pw: " + pw + ", Name: " + name
 				+ ", Email: " + email + ", Regdate: " + regdate + "]";
 	}
-	
 	
 }

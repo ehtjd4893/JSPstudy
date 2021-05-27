@@ -5,6 +5,7 @@
 <%
 	// 1. 파라미터 처리
 	request.setCharacterEncoding("utf-8");
+
 	String pw = request.getParameter("pw");
 	
 	// 2. DB로 보낼 DTO 생성
