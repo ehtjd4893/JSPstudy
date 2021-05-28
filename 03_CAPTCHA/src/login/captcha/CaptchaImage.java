@@ -70,6 +70,7 @@ public class CaptchaImage {
         // realPath를 알아내려면 request 필요
         final String DIR = "captcha_storage";
         String realPath = request.getServletContext().getRealPath(DIR);
+        System.out.println(realPath);
         File dir = new File(realPath);
         if(!dir.exists()) { 
         	dir.mkdir();

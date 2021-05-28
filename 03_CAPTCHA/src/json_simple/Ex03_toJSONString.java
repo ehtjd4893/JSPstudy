@@ -34,7 +34,7 @@ public class Ex03_toJSONString {
 		// 보낼 때는 스트링 변환해서 보내주고,
 		// 받아서 사용할 때는 JSONParser를 이용해서 json타입으로 변환하여 사용
 		JSONParser parser = new JSONParser();
-
+		
 	}
 }
 

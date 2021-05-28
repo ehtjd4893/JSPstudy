@@ -1,5 +1,9 @@
 // 네이버 검색 API 예제 - 단축 URL - GET
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,6 +13,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -27,16 +34,32 @@ public class ApiExamShortenUrl {
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
         String responseBody = get(apiURL,requestHeaders);
 
-        System.out.println(responseBody);
         JSONParser parser = new JSONParser();
         JSONObject obj = null;
         try {
 			obj = (JSONObject) parser.parse(responseBody);
+			System.out.println(obj);
+			JSONObject list = (JSONObject)obj.get("result");
+			System.out.println("orgURL: " + list.get("orgUrl"));
+			System.out.println("url: " + list.get("url"));
+			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("D://SPRING0303//tmp.txt"));
+			byte[] b = obj.toJSONString().getBytes();
+			bos.write(b);
+			bos.flush();
+			bos.close();
 			
-		} catch (Exception e) {
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream("D://SPRING0303//tmp.txt"));
+			bis.read(b);
+			bis.close();
+			String read = new String(b,"utf-8");
+			obj = (JSONObject) parser.parse(read);
+			System.out.println("new_orgURL: " + ((JSONObject)obj.get("result")).get("orgUrl"));
+			
+        } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
     }
 
     private static String get(String apiUrl, Map<String, String> requestHeaders){
