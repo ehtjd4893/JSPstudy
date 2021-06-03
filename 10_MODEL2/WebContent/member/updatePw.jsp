@@ -1,15 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 
 <% request.setCharacterEncoding("utf-8"); %>
-<link rel="stylesheet" href="../assets/css/layout.css">
-
 <jsp:include page="../layout/header.jsp">
-	<jsp:param value="비밀번호 변경" name="title"/>
+	<jsp:param value="비밀번호변경" name="title" />
 </jsp:include>
+
+<link rel="stylesheet" href="../assets/css/layout.css">
+<style>
+	.pw_form {
+		width: 300px;
+		margin: 0 auto;
+	}
+	#f input:not([type=button]) {
+		padding: 5px;
+		width: 100%;
+		height: 50px;
+	}
+	#f button {
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
+		background-color: orange;
+		border: none;
+		font-size: 18px;
+	}
+	#f button:hover {
+		cursor: pointer;
+	}
+	.message {
+		font-size: 12px;
+		color: crimson;
+	}
+	.title {
+		font-weight: 700;
+		font-size: 14px;
+	}
+</style>
 <script>
-	$(function(){
+	$(document).ready(function(){
 		const f = $('#f');
 		const pw0 = $('#pw0');
 		const pw0_message = $('#pw0_message');
@@ -39,96 +68,23 @@
 		})
 	})
 </script>
-<style>
-	*{
-		box-sizing: border-box;
-	}
-	.join_form{
-		widrh:300px;
-		margin: 50px auto;
-	}
-	#f{
-		margin: 0 auto;
-		width: 300px;	
-		
-	}
-
-	.box{
-		border: 0;
-		box-sizing: border-box;
-		display: block;
-		background-color: white;
-		width: 300px;
-		height:80px;
-	}
-
-	input[type="text"], input[type="password"]{
-		border-radius: 5px;
-		border: 1px solid black;
-		background-color: white;
-		height: 40px;
-		width: 298px;
-		padding: 0 20px 0 20px;
-		font-size: 18px;
-	}
-	
-	input:disabled{
-		background-color:black;
-		color: white;
-	}
-	
-	button{
-		border-radius: 5px;
-		border: 1px solid black;
-		height: 40px;
-		width: 298px;
-		padding: 0 20px 0 20px;
-		font-size: 18px;
-	}
-	.message{
-		border: 0;
-		background-color: white;
-		height:10px;
-		font-size: 10px;
-		width:298px;
-		padding: 0 20px 0 20px;
-		color:red;
-	}
-	.green{
-		color:green;
-	}
-	input:focus{
-		outline: 0;
-		border: 1px solid orange;
-	}
-
-</style>
-
 
 <div class="pw_form">
-	<form method="post" id="f" action="/10_MODEL2/updatePw.m">
-		<%-- 아이디 --%>
-		<div class="box">
-			<span class="title">현재 비밀번호</span>
-			<input type="password" name="pw0" id="pw0">
-			<span class="message" id="pw0_message"></span>
-		</div>
-		<%-- 비밀번호 --%>
-		<div class="box">
-			<span class="title">새 비밀번호</span><br>
-			<input type="password" id="pw" name="pw"><br>
-			<span class="message" id="pw_message"></span>
-		</div>
+	<form action="/10_MODEL2/updatePw.m" id="f" method="post">
+		<%-- 현재 비밀번호 --%>
+		<span class="title">현재 비밀번호</span><br>
+		<input type="password" name="pw0" id="pw0"><br>
+		<span class="message" id="pw0_message"></span><br>
+		<%-- 새 비밀번호 --%>
+		<span class="title">새 비밀번호</span><br>
+		<input type="password" name="pw" id="pw"><br>
+		<span class="message" id="pw_message"></span><br>
 		<%-- 비밀번호 확인 --%>
-		<div class="box">
-			<span class="title">새 비밀번호 확인</span><br>
-			<input type="password" id="pw1" name="pw1"><br>
-			<span class="message" id="pw1_message"></span>
-		</div>
-		<%-- 인증(캡차, SMS, 이메일 등) --%>
-		<%-- 약관 동의 --%>
-		<button>비밀번호 변경하기</button>
+		<span class="title">비밀번호 확인</span><br>
+		<input type="password" name="pw1" id="pw1"><br>
+		<span class="message" id="pw1_message"></span><br>
+		<button>비밀번호변경하기</button>
 	</form>
 </div>
-<%-- 정적 페이지 포함 (파라미터 전달이 불가능하다.) --%>
+
 <%@ include file="../layout/footer.jsp" %>

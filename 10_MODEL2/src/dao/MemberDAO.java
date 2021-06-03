@@ -3,7 +3,6 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -23,9 +22,9 @@ public class MemberDAO {
 	// static 필드의 초기화 : static 블록에서 처리
 	static {
 		try {
-			Context context = new InitialContext();	// Connection을 가지고 있는 dataSource로부터 con을 가져온다.
+			Context context = new InitialContext();
 			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/oracle");  // 톰캣용(java:comp/env), Resource이름(jdbc/oracle)
-		} catch (Exception e) {
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -55,15 +54,14 @@ public class MemberDAO {
 	/* 커넥션(Connection)은 메소드마다 열고 닫는 것이 가장 좋다. */
 	public MemberDTO login(MemberDTO dto) {
 		MemberDTO loginDTO = null;
-		
-		sql = "SELECT NO, ID, PW, NAME, EMAIL, REGDATE FROM MEMBER WHERE ID = ? AND PW = ?";
 		try {
-			con = dataSource.getConnection();
+			con = dataSource.getConnection();  // Connection을 가지고 있는 dataSource로부터 con을 가져온다.
+			sql = "SELECT NO, ID, PW, NAME, EMAIL, REGDATE FROM MEMBER WHERE ID = ? AND PW = ?";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getId());
 			ps.setString(2, dto.getPw());
 			rs = ps.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				loginDTO = new MemberDTO();
 				loginDTO.setNo(rs.getLong(1));
 				loginDTO.setId(rs.getString(2));
@@ -71,10 +69,8 @@ public class MemberDAO {
 				loginDTO.setName(rs.getString(4));
 				loginDTO.setEmail(rs.getString(5));
 				loginDTO.setRegdate(rs.getDate(6));
-				
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(con, ps, rs);
@@ -82,7 +78,7 @@ public class MemberDAO {
 		return loginDTO;
 	}
 	
-	/* 로그인 로그 남기기 */
+	/* 3. 로그인 로그 남기기 */
 	public void loginLog(MemberDTO dto) {
 		try {
 			con = dataSource.getConnection();
@@ -91,55 +87,50 @@ public class MemberDAO {
 			ps.setString(1, dto.getId());
 			ps.executeUpdate();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(con, ps, null);
 		}
 	}
 	
-	/* 로그아웃 로그 남기기 */
+	/* 4. 로그아웃 로그 남기기 */
 	public void logoutLog(String id) {
 		try {
 			con = dataSource.getConnection();
-			sql = "UPDATE MEMBER_LOG SET LOGOUT = SYSDATE WHERE ID = ?";
+			sql = "UPDATE MEMBER_LOG SET LOGOUT = SYSDATE WHERE ID = ? AND LOGOUT IS NULL";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, id);
 			ps.executeUpdate();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(con, ps, null);
 		}
 	}
 	
-	/* 회원가입 */
+	/* 5. 회원가입 */
 	public int join(MemberDTO dto) {
 		int result = 0;
 		try {
 			con = dataSource.getConnection();
-			sql = "INSERT INTO MEMBER VALUES(MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE)";
+			sql = "INSERT INTO MEMBER VALUES (MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getId());
 			ps.setString(2, dto.getPw());
 			ps.setString(3, dto.getName());
 			ps.setString(4, dto.getEmail());
 			result = ps.executeUpdate();
-			System.out.println(result);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			close(con, ps, rs);
+			close(con, ps, null);
 		}
 		return result;
 	}
 	
-	/* 비밀번호 변경 */
+	/* 6. 비밀번호 변경 */
 	public int updatePw(MemberDTO dto) {
 		int result = 0;
-		
 		try {
 			con = dataSource.getConnection();
 			sql = "UPDATE MEMBER SET PW = ? WHERE NO = ?";
@@ -147,15 +138,15 @@ public class MemberDAO {
 			ps.setString(1, dto.getPw());
 			ps.setLong(2, dto.getNo());
 			result = ps.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			close(con, ps, rs);
+			close(con, ps, null);
 		}
 		return result;
 	}
 	
+	/* 7. 회원정보 변경 */
 	public int updateMember(MemberDTO dto) {
 		int result = 0;
 		try {
@@ -167,15 +158,14 @@ public class MemberDAO {
 			ps.setLong(3, dto.getNo());
 			result = ps.executeUpdate();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			close(con, ps, rs);
+			close(con, ps, null);
 		}
-		
 		return result;
 	}
 	
+	/* 8. 회원 탈퇴(삭제) */
 	public int deleteMember(long no) {
 		int result = 0;
 		try {
@@ -185,29 +175,28 @@ public class MemberDAO {
 			ps.setLong(1, no);
 			result = ps.executeUpdate();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			close(con, ps, rs);
+			close(con, ps, null);
 		}
 		return result;
 	}
 	
-	/* 회원 접속 정보 삭제 */
+	/* 9. 회원 접속 정보 삭제 */
 	public void deleteMemberLog(String id) {
-		
 		try {
 			con = dataSource.getConnection();
-			sql = "DELETE FROM MEMBER_LOG WHERE id = ?";
+			sql = "DELETE FROM MEMBER_LOG WHERE ID = ?";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, id);
 			ps.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
 		}
-		
 	}
+
 }
 
 

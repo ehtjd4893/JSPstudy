@@ -10,7 +10,7 @@ import common.ModelAndView;
 import dao.MemberDAO;
 import dto.MemberDTO;
 
-public class UpdatePwCommand implements MemberCommand{
+public class UpdatePwCommand implements MemberCommand {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
@@ -19,37 +19,35 @@ public class UpdatePwCommand implements MemberCommand{
 		// session에서 loginDTO 정보 알아내기
 		HttpSession session = request.getSession();
 		MemberDTO loginDTO = (MemberDTO)session.getAttribute("loginDTO");
-		
+		// DB로 보낼 DTO
 		MemberDTO dto = new MemberDTO();
-		dto.setNo(loginDTO.getNo());
 		dto.setPw(pw);
-		
+		dto.setNo(loginDTO.getNo());
+		// DAO의 updatePw() 메소드 호출
 		int result = MemberDAO.getInstance().updatePw(dto);
-		ModelAndView mav = null;
 		try {
 			PrintWriter out = response.getWriter();
-			if(result > 0) {
+			if (result > 0) {
+				// session의 loginDTO 업데이트
 				loginDTO.setPw(pw);
+				// 응답 및 이동
 				out.println("<script>");
-				out.println("alert('비밀번호를 변경 완료!')");
+				out.println("alert('비밀번호가 변경되었습니다.')");
+				out.println("location.href = '/10_MODEL2/index.do'");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('비밀번호가 수정되지 않았습니다.')");
 				out.println("location.href = '/10_MODEL2/myPage.m'");
 				out.println("</script>");
-				out.flush();
-				out.close();
-			}else {
-				out.println("<script>");
-				out.println("alert('비밀번호 변경 실패!')");
-				out.println("location.href = '/10_MODEL2/myPage.m'");
-				out.println("</script>");
-				out.flush();
-				out.close();
 			}
-		}catch (Exception e) {
-			// TODO: handle exception
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return mav;
+		return null;
 	}
 
 }
+
+
+
