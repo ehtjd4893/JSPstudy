@@ -30,7 +30,7 @@ public class InsertReplyCommand implements BoardCommand {
 		// 기존 댓글들의 groupord를 모두 1씩 증가시킨다.
 		// 기존 댓글: 같은 groupNo, depth = 1
 		
-		BoardDAO.getInstance().increaseGroupordPreviosReply(groupno);
+		BoardDAO.getInstance().increseGroupordPreviousReply(groupno);
 		
 		int result = BoardDAO.getInstance().insertReply(replyDTO);
 		
