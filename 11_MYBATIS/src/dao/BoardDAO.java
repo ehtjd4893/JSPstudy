@@ -51,9 +51,23 @@ public class BoardDAO {
 		ss.close();
 		return list;
 	}
+	/* 4. 같은 그룹 기존 댓글들의 groupord 증가 */
+	public int increaseGroupordPreviosReply(Long groupno) {
+		SqlSession ss = factory.openSession(false);	// 직접 커밋하겠다.
+		int result = ss.update("mybatis.mapper.board.increaseGroupordPreviosReply", groupno);
+		return result;
+	}
 	
-	
-	
+	/* 5. 댓글 삽입하기 */
+	public int insertReply(BoardDTO replyDTO) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.insert(NAMESPACE + ".insertReply", replyDTO);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	

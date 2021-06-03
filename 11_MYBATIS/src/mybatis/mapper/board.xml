@@ -36,8 +36,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM (SELECT ROWNUM AS RN, A.*
 		  		  FROM (SELECT *
 		  		  		  FROM BOARD
-		  		  		 ORDER BY GROUPNO DESC, DEPTH ASC, GROPUORD DESC) A ) B
+		  		  		 ORDER BY GROUPNO DESC, DEPTH ASC, GROUPORD DESC) A ) B
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
-
+	<update id="increaseGroupordPreviosReply" parameterType="long">
+		UPDATE BOARD
+		   SET GROUPORD = GROUPORD + 1
+		 WHERE GROUPNO = ${groupno}
+		   AND DEPTH = 1
+	</update>
+	<insert id="insertReply" parameterType="dto.BoardDTO">
+		INSERT INTO
+		 BOARD
+		VALUES (BOARD_SEQ.NEXTVAL,
+				#{author},  <!-- dto.BoardDTO에서 getAuthor()를 실행한다. -->
+				#{title},
+				#{content},
+				#{ip},
+				0,  <!-- 조회수 -->
+				SYSDATE,  <!-- 작성일 -->
+				SYSDATE,  <!-- 최종수정일 -->
+				0,  <!-- 정상: 0, 삭제: -1 -->
+				${groupno},  
+				${groupord},  
+				${depth} 
+		<!-- #{}는 '문자열'과 같이 반환, ${}는 숫자처럼 반환 -->
+		)
+	</insert>
 </mapper>

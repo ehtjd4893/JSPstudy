@@ -16,20 +16,27 @@ public class InsertReplyCommand implements BoardCommand {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String ip = request.getRemoteAddr();
-		long no = Long.parseLong(request.getParameter("no"));
+		long groupno = Long.parseLong(request.getParameter("groupno"));
 		
-		BoardDTO dto = new BoardDTO();
-		dto.setAuthor(author);
-		dto.setTitle(title);
-		dto.setContent(content);
-		dto.setIp(ip);
-		dto.setGroupno(no);	// 댓글은 원글과 같은 그룹이 된다.
-		dto.setDepth(1);	// 댓글의 depth는 1이다.
-		dto.setGroupord(1);
-		int result = BoardDAO.getInstance().insert(dto);
+		BoardDTO replyDTO = new BoardDTO();
+		replyDTO.setAuthor(author);
+		replyDTO.setTitle(title);
+		replyDTO.setContent(content);
+		replyDTO.setIp(ip);
+		replyDTO.setGroupno(groupno);	// 댓글은 원글과 같은 그룹이 된다.
+		replyDTO.setDepth(1);	// 댓글의 depth는 1이다.
+		replyDTO.setGroupord(1);	// 그룹 내부 순서
+		
+		// 기존 댓글들의 groupord를 모두 1씩 증가시킨다.
+		// 기존 댓글: 같은 groupNo, depth = 1
+		
+		BoardDAO.getInstance().increaseGroupordPreviosReply(groupno);
+		
+		int result = BoardDAO.getInstance().insertReply(replyDTO);
+		
 		
 		// 결과를 처리할 insertResult.jsp를 만들고 이동한다.
-		return new ModelAndView("/11_MYBATIS/board/insertResult.jsp?result=" + result, true);  // 삽입 후에는 반드시 리다이렉트
+		return new ModelAndView("/11_MYBATIS/board/insertReplyResult.jsp?result=" + result, true);  // 삽입 후에는 반드시 리다이렉트
 	}
 
 }

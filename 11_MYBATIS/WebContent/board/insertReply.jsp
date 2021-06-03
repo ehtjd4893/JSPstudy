@@ -9,7 +9,7 @@
 <body>
 	<form action="/11_MYBATIS/insertReply.do" method="post">
 		<%-- 원글의 번호 --%>
-		<input type="hidden" name="no" value="${param.no}">
+		<input type="hidden" name="groupno" value="${param.groupno}">
 		
 		<h3>댓글 작성하기</h3>
 		<p>작성자</p>

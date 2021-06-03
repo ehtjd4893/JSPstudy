@@ -23,7 +23,7 @@ public class SelectListCommand implements BoardCommand {
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		
-		int recordPerPage = 5;
+		int recordPerPage = 7;
 		int beginRecord = (page - 1) * recordPerPage + 1;
 		int endRecord = beginRecord + recordPerPage - 1;
 		if (endRecord > totalRecord) {
@@ -42,7 +42,6 @@ public class SelectListCommand implements BoardCommand {
 		request.setAttribute("totalRecord", totalRecord);
 		request.setAttribute("paging", paging);
 		request.setAttribute("seq", totalRecord - (page - 1) * recordPerPage);
-		
 		return new ModelAndView("board/selectList.jsp", false);  // 포워드
 		
 	}
