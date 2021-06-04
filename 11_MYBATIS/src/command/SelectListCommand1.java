@@ -30,7 +30,7 @@ public class SelectListCommand1 implements BoardCommand {
 			endRecord = totalRecord;
 		}
 		
-		Map<String, Integer> map = new HashMap<>();
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("beginRecord", beginRecord);
 		map.put("endRecord", endRecord);
 		
@@ -42,7 +42,9 @@ public class SelectListCommand1 implements BoardCommand {
 		request.setAttribute("totalRecord", totalRecord);
 		request.setAttribute("paging", paging);
 		request.setAttribute("seq", totalRecord - (page - 1) * recordPerPage);
+		
 		return new ModelAndView("board/selectList1.jsp", false);  // 포워드
+		
 	}
 
 }

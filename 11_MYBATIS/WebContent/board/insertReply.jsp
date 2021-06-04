@@ -7,10 +7,11 @@
 	<title>Insert title here</title>
 </head>
 <body>
-	<form action="/11_MYBATIS/insertReply.do" method="post">
-		<%-- 원글의 번호 --%>
+	<form action="/11_MYBATIS/insertReply1.do" method="post">
+	
+		<%-- 원글의 그룹번호 --%>
 		<input type="hidden" name="groupno" value="${param.groupno}">
-		
+	
 		<h3>댓글 작성하기</h3>
 		<p>작성자</p>
 		<div><input type="text" name="author" autofocus></div>

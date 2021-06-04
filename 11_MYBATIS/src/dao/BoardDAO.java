@@ -94,35 +94,40 @@ public class BoardDAO {
 	
 	/* 8. 삭제 */
 	public int delete(long no) {
-		SqlSession ss = factory.openSession();
+		SqlSession ss = factory.openSession(false);
 		int result = ss.delete(NAMESPACE + ".delete", no);
-		if(result > 0) {
+		if (result > 0) {
 			ss.commit();
 		}
 		ss.close();
 		return result;
-		
 	}
-
-	/* 3. 목록 */
+	
+	/* 9. 대댓글 목록 */
 	public List<BoardDTO> selectList3(Map<String, Integer> map) {
 		SqlSession ss = factory.openSession();
-		List<BoardDTO> list = ss.selectList("mybatis.mapper.board.selectList", map);
+		List<BoardDTO> list = ss.selectList("mybatis.mapper.board.selectList3", map);
 		ss.close();
 		return list;
 	}
 	
+	/* 10. 원글 가져오기 */
+	public BoardDTO selectBoard(long no) {
+		SqlSession ss = factory.openSession();
+		BoardDTO boardDTO = ss.selectOne("mybatis.mapper.board.selectBoard", no);
+		ss.close();
+		return boardDTO;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/* 11. 원글의 groupord보다 큰 groupord를 가진 댓글의 groupord 증가 */
+	public int increseGroupordOtherReply(BoardDTO boardDTO) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.update("mybatis.mapper.board.increseGroupordOtherReply", boardDTO);
+		if (result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 }

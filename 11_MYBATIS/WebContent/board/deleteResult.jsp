@@ -10,13 +10,12 @@
 			alert('삭제되었습니다.');
 			location.href = '/11_MYBATIS/selectList2.do';
 		} else {
-			alert('삭제에 실패했습니다.');
+			alert('삭제가 실패했습니다.');
 			history.back();
 		}
 	</script>
-
 </head>
 <body>
-	
+
 </body>
 </html>

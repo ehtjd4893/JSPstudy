@@ -13,11 +13,13 @@ import command.DeleteCommand;
 import command.FindListCommand;
 import command.InsertCommand;
 import command.InsertPageCommand;
+import command.InsertReplyCommand1;
+import command.InsertReplyCommand2;
+import command.InsertReplyCommand3;
+import command.InsertReplyPageCommand;
 import command.SelectListCommand1;
 import command.SelectListCommand2;
 import command.SelectListCommand3;
-import command.InsertReplyCommand;
-import command.InsertReplyPageCommand;
 import common.ModelAndView;
 
 @WebServlet("*.do")
@@ -56,8 +58,13 @@ public class BoardController extends HttpServlet {
 			command = new InsertReplyPageCommand();
 			break;
 		case "insertReply1.do":
+			command = new InsertReplyCommand1();
+			break;
 		case "insertReply2.do":
-			command = new InsertReplyCommand();
+			command = new InsertReplyCommand2();
+			break;
+		case "insertReply3.do":
+			command = new InsertReplyCommand3();
 			break;
 		case "findList.do":
 			command = new FindListCommand();
