@@ -89,6 +89,7 @@
 			const join_btn = $('#join_btn');
 			join_btn.click(function(event){
 				if( !id_result ){
+					alert('아이디 입력을 확인하세요.');
 					event.preventDefault();
 					return false;
 				}
