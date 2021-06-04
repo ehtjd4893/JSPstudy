@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 <body>
-	<a href="/12_AJAX/loginPage.do">로그인하러 가기</a>	
+
 </body>
 </html>
