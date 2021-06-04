@@ -34,7 +34,7 @@ public class MemberDAO {
 	public int save(MemberDTO dto) {  // join.jsp가 전달한 dto
 		int result = 0;
 		try {
-			sql = "INSERT INTO MEMBER VALUES (MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE)";
+			sql = "INSERT INTO MEMBER VALUES (MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, SYSTIMESTAMP)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getId());
 			ps.setString(2, dto.getPw());

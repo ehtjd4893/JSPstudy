@@ -7,12 +7,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import command.DeleteMemberCommand;
 import command.IdCheckCommand;
+import command.JoinCommand;
 import command.JoinPageCommand;
 import command.LoginCommand;
 import command.LoginPageCommand;
 import command.LogoutCommand;
 import command.MemberCommand;
+import command.UpdateInfoCommand;
+import command.UpdatePwCommand;
 import common.ModelAndView;
 
 
@@ -49,7 +53,17 @@ public class MemberController extends HttpServlet {
 		case "idCheck.do":
 			command = new IdCheckCommand();
 			break;
-		case "":
+		case "join.do":
+			command = new JoinCommand();
+			break;
+		case "updatePw.do":
+			command = new UpdatePwCommand();
+			break;
+		case "updateInfo.do":
+			command = new UpdateInfoCommand();
+			break;
+		case "deleteMember.do":
+			command = new DeleteMemberCommand();
 			break;
 		}
 		

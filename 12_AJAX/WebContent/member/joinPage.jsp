@@ -33,10 +33,10 @@
 			display:flex;
 			justify-content: space-between;
 		}
-		#phone{
+		/* #phone{
 			width: 70px;
 			height: 50px;
-		}
+		} */
 		.message_red{
 			color: crimson;
 			font-size: 12px;
@@ -50,10 +50,12 @@
 	</style>
 	<script>
 		$(function(){
+			
+			var id_result;			
 			const regID = /^[a-z][a-z0-9_-]{3,31}$/;
 			const id = $('#id');
 			const id_msg = $('#id_msg');
-			var id_result;
+
 			id.blur(function(){
 				id_result = false;
 				id_msg.attr('class','message_red');
@@ -84,20 +86,40 @@
 					}
 				})
 			
-			const join_form = $('#join_form');
-			join_form.submit(function(event){
+			const join_btn = $('#join_btn');
+			join_btn.click(function(event){
 				if( !id_result ){
 					event.preventDefault();
 					return false;
 				}
+				join();
 			})
 		})
 		
+		function join(){
+			$.ajax({
+				url: '/12_AJAX/join.do',
+				type: 'post',
+				data: $('#join_form').serialize(),	// join_form의 모든 파라미터를 보낼 때
+				dataType: 'json',
+				success: function(obj){
+					if(obj.result == 1){
+						alert('회원가입 성공!');
+						location.href = '/12_AJAX/loginPage.do';
+					} else{
+						alert('회원가입 실패!');
+					}
+				},
+				error: function(){
+					alert('오류가 발생했습니다.');
+				}
+			})	
+		}
 	</script>
 	
 </head>
 <body>
-	<form id="join_form" method="post" action="/12_AJAX/join.do">
+	<form id="join_form" method="post">
 		<h1>회원가입</h1>
 		
 		<label for="id">아이디</label>
@@ -117,13 +139,15 @@
 		<div id="email_msg" class="message_red"></div>
 		
 		<label for="phone">연락처</label>
-		<div id="phone_box">
+		<input type="text" id="phone" name="phone">
+<!-- 		<div id="phone_box">
 			<input type="text" id="phone" name="phone">-
 			<input type="text" id="phone" name="phone">-
 			<input type="text" id="phone" name="phone">
 			<div id="phone_msg" class="message_red"></div>
-		</div>
-		<button>가입하기</button>
+		</div> -->
+		<br><br>
+		<input type="button" value="가입하기" id="join_btn">
 	</form>
 </body>
 </html>
