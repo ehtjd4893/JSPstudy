@@ -68,7 +68,12 @@ public class MemberDAO {
 		ss.close();
 		return result;
 	}
-	
-	
+	/* 6. 전체 회원수 반환 */
+	public int getMemberCount() {
+		SqlSession ss = factory.openSession();
+		int count = ss.selectOne("dao.member.getMemberCount");
+		ss.close();
+		return count;
+	}
 	
 }

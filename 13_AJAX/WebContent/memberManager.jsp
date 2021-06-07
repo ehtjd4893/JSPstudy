@@ -34,6 +34,7 @@
 					//			{"no":1,"address":"서울","gender":"남","name":"제임스","id":"user1"}
 					//		],
 					//		"isExist":true}
+					$('#totalRecord').text('전체회원수: ' + result.paging.totalRecord + '명');
 					$('#memberList').empty();
 					if(result){	// 목록이 있다면,
 						generateMemberList(result.list);					
@@ -279,6 +280,7 @@
 		<%-- 회원목록/삭제 --%>
 		<div class="right">
 			<h3>회원목록/삭제</h3>
+			<div id="totalRecord"></div>
 			<table>
 				<thead>
 					<tr>

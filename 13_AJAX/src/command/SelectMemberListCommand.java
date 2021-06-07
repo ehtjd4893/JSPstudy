@@ -14,12 +14,25 @@ import controller.ModelAndView;
 import dao.MemberDAO;
 import dto.Member;
 
+
 public class SelectMemberListCommand implements MemberCommand {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int totalRecord = MemberDAO.getInstance().getMemberCount();
+						
+		// beginRecord, endRecord 구하기
+		
+		// beginRecord ~ endRecord 목록 가져오기
+		
 		List<Member> list = MemberDAO.getInstance().selectMemberList();
 		JSONObject obj = new JSONObject();
+		
+		JSONObject paging = new JSONObject();
+		paging.put("totalRecord",totalRecord);
+	
+		obj.put("paging",paging);
+		
 		if(list.size() > 0) {
 			obj.put("isExist", true);
 			JSONArray arr = new JSONArray();
@@ -32,8 +45,10 @@ public class SelectMemberListCommand implements MemberCommand {
 				obj2.put("gender", member.getGender());
 				arr.add(obj2);
 			}
+			
 			obj.put("list", arr);
 			obj.put("isExist",true);
+			obj.put("totalRecord",totalRecord);
 			//System.out.println(obj.toString());
 		} else {
 			obj.put("isExist", false);
