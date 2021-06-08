@@ -9,7 +9,6 @@ public class MyJob implements Job {
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		System.out.println("MyJob Call!");
-
 	}
 
 }

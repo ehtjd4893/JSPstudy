@@ -8,7 +8,6 @@ public class HelloJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		
 		System.out.println("HelloJob을 수행합니다.");
 	}
 

@@ -1,6 +1,7 @@
 package dto;
 
 public class StudentDTO {
+
 	private String sno;
 	private String name;
 	private int kor;
@@ -9,8 +10,9 @@ public class StudentDTO {
 	private double ave;
 	private char grade;
 	
-	public StudentDTO() {}
-
+	public StudentDTO() {
+		super();
+	}
 	public StudentDTO(String sno, String name, int kor, int eng, int mat, double ave, char grade) {
 		super();
 		this.sno = sno;
@@ -21,7 +23,6 @@ public class StudentDTO {
 		this.ave = ave;
 		this.grade = grade;
 	}
-
 
 
 	public String getSno() {
@@ -66,11 +67,5 @@ public class StudentDTO {
 	public void setGrade(char grade) {
 		this.grade = grade;
 	}
-	@Override
-	public String toString() {
-		return "StudentDTO [sno=" + sno + ", name=" + name + ", kor=" + kor + ", eng=" + eng + ", mat=" + mat + ", ave="
-				+ ave + ", grade=" + grade + "]";
-	}
-	
 	
 }

@@ -8,21 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.InsertStudentCommand;
+import command.SelectStudentListCommand;
 import command.StudentCommand;
-import command.selectStudentListCommand;
-import dao.StudentDAO;
-
 
 @WebServlet("*.do")
 public class StudentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-
     public StudentController() {
         super();
     }
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
@@ -31,34 +27,33 @@ public class StudentController extends HttpServlet {
 		
 		StudentCommand command = null;
 		ModelAndView mav = null;
-		switch(cmd) {
+		switch (cmd) {
 		case "selectStudentList.do":
-			command = new selectStudentListCommand();
+			command = new SelectStudentListCommand();
 			break;
 		case "insertStudent.do":
 			command = new InsertStudentCommand();
 			break;
 		}
 		
-		if(command != null) {
-			
+		if (command != null) {
 			try {
 				mav = command.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if(mav != null) {
-				if(mav.isRedirect()) {
-					response.sendRedirect(mav.getView());
-				} else {
-					request.getRequestDispatcher(mav.getView()).forward(request, response);
-				}
+		}
+		
+		if (mav != null) {
+			if (mav.isRedirect()) {
+				response.sendRedirect(mav.getView());
+			} else {
+				request.getRequestDispatcher(mav.getView()).forward(request, response);
 			}
 		}
+		
 	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

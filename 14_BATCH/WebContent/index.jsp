@@ -10,7 +10,7 @@
 	<h1>잠시 후 학생관리로 이동합니다.</h1>
 	<script>
 		setTimeout(function(){
-			location.href = '/14_BATCH/selectStudentList.do';
+			location.href='/14_BATCH/selectStudentList.do';
 		}, 3000);
 	</script>
 </body>

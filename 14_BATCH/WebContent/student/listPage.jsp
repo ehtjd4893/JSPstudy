@@ -8,13 +8,14 @@
 	<title>Insert title here</title>
 </head>
 <body>
+
 	<h1>학생 추가하기</h1>
 	<form action="/14_BATCH/insertStudent.do">
-		<input type="text" name="sno" placeholder="학번">&nbsp;
+		<input type="text" name="sno" placeholder="학번" autofocus>&nbsp;
 		<input type="text" name="name" placeholder="성명">&nbsp;
 		<input type="text" name="kor" placeholder="국어">&nbsp;
 		<input type="text" name="eng" placeholder="영어">&nbsp;
-		<input type="text" name="mat" placeholder="수학">&nbsp;		
+		<input type="text" name="mat" placeholder="수학">&nbsp;
 		<button>등록</button>
 	</form>
 	<hr>
@@ -25,8 +26,8 @@
 				<td>학번</td>
 				<td>이름</td>
 				<td>국어</td>
-				<td>수학</td>
 				<td>영어</td>
+				<td>수학</td>
 				<td>평균</td>
 				<td>학점</td>
 			</tr>
