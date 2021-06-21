@@ -41,7 +41,6 @@ public class MemberCommandMapper {
 		case "updatePwPage.m":
 			command = new UpdatePwPageCommand();
 			break;
-		
 		case "login.m":
 			command = new LoginCommand();
 			break;

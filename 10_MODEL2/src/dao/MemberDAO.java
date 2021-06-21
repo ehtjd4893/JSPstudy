@@ -18,7 +18,8 @@ public class MemberDAO {
 	private ResultSet rs;
 	private String sql;
 	
-	private static DataSource dataSource;  // 커넥셕풀 관리
+	private static DataSource dataSource;  // 커넥션풀 관리
+	
 	// static 필드의 초기화 : static 블록에서 처리
 	static {
 		try {
