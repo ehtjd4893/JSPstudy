@@ -9,12 +9,11 @@ import org.junit.jupiter.api.Test;
 
 import dao.PersonDAO;
 
-class PersonTEST {
+class jtest {
 	int size = 0;
-	
 	@BeforeEach
 	void setUp() throws Exception {
-		size = PersonDAO.getInstance().selectPersonList().size();
+		size = PersonDAO.getInstance().selectList().size();
 	}
 
 	@AfterEach
@@ -22,12 +21,12 @@ class PersonTEST {
 	}
 
 	@Test
-	@DisplayName("쓰벌")
+	@DisplayName("씁")
 	void test() {
-		//assertEquals(2, size, "등록된 사람은 2명이 아닙니다.");
-		
-		// 121315 주민번호 검색
-		assertNotNull(PersonDAO.getInstance().selectPersonBySno("121315"));
+		if(size < 10) {
+			fail("10명을 못 채웠네");
+		}
+		assertNull(PersonDAO.getInstance().selectPersonBySno("121315"), "121315학번은 있다.");
 	}
 
 }
