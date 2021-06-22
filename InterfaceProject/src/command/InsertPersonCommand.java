@@ -3,6 +3,7 @@ package command;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,9 +40,7 @@ public class InsertPersonCommand extends HttpServlet {
 				throw new RuntimeException();
 			}
 			String birthday = request.getParameter("birthday");
-			if(birthday.length() != 10) {
-				throw new SQLException();
-			}
+
 			Person p = new Person();
 			p.setSno(sno);
 			p.setName(name);
@@ -59,9 +58,12 @@ public class InsertPersonCommand extends HttpServlet {
 			// 나이: 유효범위 이외의 값이 입력됨
 			response.setStatus(3002);
 			response.getWriter().println("나이는 0~100 사이 정수만 입력 가능합니다.");
+		} catch(SQLIntegrityConstraintViolationException e){
+			response.setStatus(3003);	
+			response.getWriter().println("이미 존재하는 학번입니다.");
 		} catch(SQLException e) {
 			// 이름, 생일 칼럼의 크기보다 길이가 긴 값이 입력됨.
-			response.setStatus(3003);	
+			response.setStatus(3004);	
 			response.getWriter().println("입력 데이터를 확인하세요.");
 		} 
 	}
